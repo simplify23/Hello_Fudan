@@ -129,7 +129,30 @@ class Fudan:
         print("◉关闭会话")
         print("************************")
         sys_exit(exit_code)
+        
+class Mail:
+    def __init__(self):
+        self.mail_host = "smtp.qq.com"  # qq邮箱服务器
+        self.mail_pass = "kshwghsboixkdibb"  # 授权码
+        self.sender = 'niequanxin@qq.com'  # 发送方邮箱地址
+        self.receivers = ['2858749799@qq.com']  # 收件人的邮箱地址
 
+    def send(self):
+        content = '平安复旦打卡成功！\n时间：{} \n'.format(time.ctime())
+        message = MIMEText(content, 'plain', 'utf-8')
+        message['From'] = Header("平安复旦打卡提醒", 'utf-8')
+        message['To'] = Header("User", 'utf-8')
+        subject = '平安复旦打卡'  # 发送的主题
+        message['Subject'] = Header(subject, 'utf-8')
+        try:
+            smtpObj = smtplib.SMTP_SSL(self.mail_host, 465)
+            smtpObj.login(self.sender, self.mail_pass)
+            smtpObj.sendmail(self.sender, self.receivers, message.as_string())
+            smtpObj.quit()
+            print('\n邮件已发送!')
+        except smtplib.SMTPException as e:
+            pass
+            print('\n邮件发送失败!')
 
 class Zlapp(Fudan):
     last_info = ''
@@ -159,6 +182,8 @@ class Zlapp(Fudan):
         print("◉今日日期为:", today)
         if last_info["d"]["info"]["date"] == today:
             print("\n*******今日已提交*******")
+            mail = Mail()
+            mail.send()
             self.close()
         else:
             print("\n\n*******未提交*******")
