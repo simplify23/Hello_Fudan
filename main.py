@@ -13,6 +13,10 @@ import numpy
 from PIL import Image
 from PIL import ImageEnhance
 
+from email.mime.text import MIMEText
+from email.header import Header
+import smtplib
+
 from requests import session, post, adapters
 adapters.DEFAULT_RETRIES = 5
 
