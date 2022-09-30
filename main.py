@@ -139,7 +139,7 @@ class Mail:
         self.mail_host = "smtp.qq.com"  # qq邮箱服务器
         self.mail_pass = "kshwghsboixkdibb"  # 授权码
         self.sender = 'niequanxin@qq.com'  # 发送方邮箱地址
-        self.receivers = ['2858749799@qq.com']  # 收件人的邮箱地址
+        self.receivers = ['956491659@qq.com']  # 收件人的邮箱地址
 
     def send(self):
         content = '平安复旦打卡成功！\n时间：{} \n'.format(time.ctime())
